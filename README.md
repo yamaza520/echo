@@ -15,3 +15,27 @@ Brought to you by [FabricateIO](http://fabricate.io)
 6. Tell Echo, "discover my devices"
 7. Use Echo's "turn off device" and "device on" to see True/False script output
 
+## custmize
+
+use https://github.com/netbuffalo/irmcli
+
+```
+sudo python irmcli.py -c
+sudo python irmcli.py -s -f light_on.json
+sudo python irmcli.py -p -f light_on.json
+```
+
+## initd
+
+```
+cd /usr/local/src
+sudo chown root.root echo.sh
+sudo chmod 755 echo.sh
+sudo cp echo.sh /etc/init.d/
+
+sudo chmod 755 home.py
+
+sudo /etc/init.d/echo.sh start
+sudo /etc/init.d/echo.sh status
+sudo /etc/init.d/echo.sh stop
+```

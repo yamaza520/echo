@@ -21,19 +21,24 @@ import os
 
 from debounce_handler import debounce_handler
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 ir_serial = serial.Serial("/dev/ttyACM0", 9600, timeout = 1)
 
 class device_handler(debounce_handler):
     """Publishes the on/off state requested,
        and the IP address of the Echo making the request.
     """
-    TRIGGERS = {"lights": 52000, "tv": 52001, "air-condition": 52002}
+    TRIGGERS = {"lights": 52000, "tv": 52001, "offtimer": 52002}
 
     def act(self, client_address, state, name):
-        print "State", state, "on ", name,  "from client @", client_address
+        logging.info("State", state, "on", name, "from client @", client_address)
         if name == "lights":
             self.playLights(state)
+        elif name == "tv":
+            self.playTv(state)
+        elif name == "offtimer":
+            self.playOffTimer(state)
         return True
 
     def playIR(self, path):
@@ -78,6 +83,25 @@ class device_handler(debounce_handler):
             self.playIR("/usr/local/src/irmcli/light_on.json")
         else:
             self.playIR("/usr/local/src/irmcli/light_off.json")
+        return True
+
+    def playTv(self, state):
+        self.playIR("/usr/local/src/irmcli/tv_toggle.json")
+        return True
+
+    def playOffTimer(self, state):
+        self.playIR("/usr/local/src/irmcli/tv_quick.json")
+        time.sleep(0.5)
+        self.playIR("/usr/local/src/irmcli/tv_down.json")
+        self.playIR("/usr/local/src/irmcli/tv_down.json")
+        self.playIR("/usr/local/src/irmcli/tv_enter.json")
+        time.sleep(0.5)
+        self.playIR("/usr/local/src/irmcli/tv_down.json")
+        self.playIR("/usr/local/src/irmcli/tv_enter.json")
+        time.sleep(0.5)
+        self.playIR("/usr/local/src/irmcli/tv_down.json")
+        self.playIR("/usr/local/src/irmcli/tv_down.json")
+        self.playIR("/usr/local/src/irmcli/tv_enter.json")
         return True
 
 if __name__ == "__main__":
