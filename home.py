@@ -90,18 +90,21 @@ class device_handler(debounce_handler):
         return True
 
     def playOffTimer(self, state):
-        self.playIR("/usr/local/src/irmcli/tv_quick.json")
-        time.sleep(0.5)
-        self.playIR("/usr/local/src/irmcli/tv_down.json")
-        self.playIR("/usr/local/src/irmcli/tv_down.json")
-        self.playIR("/usr/local/src/irmcli/tv_enter.json")
-        time.sleep(0.5)
-        self.playIR("/usr/local/src/irmcli/tv_down.json")
-        self.playIR("/usr/local/src/irmcli/tv_enter.json")
-        time.sleep(0.5)
-        self.playIR("/usr/local/src/irmcli/tv_down.json")
-        self.playIR("/usr/local/src/irmcli/tv_down.json")
-        self.playIR("/usr/local/src/irmcli/tv_enter.json")
+        if state == True:
+            self.playIR("/usr/local/src/irmcli/tv_toggle.json")
+        else:
+            self.playIR("/usr/local/src/irmcli/tv_quick.json")
+            time.sleep(0.5)
+            self.playIR("/usr/local/src/irmcli/tv_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_enter.json")
+            time.sleep(0.5)
+            self.playIR("/usr/local/src/irmcli/tv_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_enter.json")
+            time.sleep(0.5)
+            self.playIR("/usr/local/src/irmcli/tv_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_enter.json")
         return True
 
 if __name__ == "__main__":
