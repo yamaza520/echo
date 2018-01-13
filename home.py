@@ -105,6 +105,13 @@ class device_handler(debounce_handler):
             self.playIR("/usr/local/src/irmcli/tv_down.json")
             self.playIR("/usr/local/src/irmcli/tv_down.json")
             self.playIR("/usr/local/src/irmcli/tv_enter.json")
+            time.sleep(0.5)
+            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
+            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
         return True
 
 if __name__ == "__main__":
