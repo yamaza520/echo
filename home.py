@@ -30,6 +30,7 @@ class device_handler(debounce_handler):
        and the IP address of the Echo making the request.
     """
     TRIGGERS = {"lights": 52000, "tv": 52001, "aircon": 52002}
+    IRDIR = "/data/irmcli/"
 
     def act(self, client_address, state, name):
         logging.info("State", state, "on", name, "from client @", client_address)
@@ -82,45 +83,45 @@ class device_handler(debounce_handler):
 
     def playLights(self, state):
         if state == True:
-            self.playIR("/usr/local/src/irmcli/light_on.json")
+            self.playIR(self.IRDIR + "light_on.json")
         else:
-            self.playIR("/usr/local/src/irmcli/light_off.json")
+            self.playIR(self.IRDIR + "light_off.json")
         return True
 
     def playAircon(self, state):
         if state == True:
-            self.playIR("/usr/local/src/irmcli/air_on.json")
+            self.playIR(self.IRDIR + "air_on.json")
         else:
-            self.playIR("/usr/local/src/irmcli/air_off.json")
+            self.playIR(self.IRDIR + "air_off.json")
         return True
 
     def playTv(self, state):
-        self.playIR("/usr/local/src/irmcli/tv_toggle.json")
+        self.playIR(self.IRDIR + "tv_toggle.json")
         return True
 
     def playOffTimer(self, state):
         if state == True:
-            self.playIR("/usr/local/src/irmcli/tv_toggle.json")
+            self.playIR(self.IRDIR + "tv_toggle.json")
         else:
-            self.playIR("/usr/local/src/irmcli/tv_quick.json")
+            self.playIR(self.IRDIR + "tv_quick.json")
             time.sleep(0.5)
-            self.playIR("/usr/local/src/irmcli/tv_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_enter.json")
+            self.playIR(self.IRDIR + "tv_down.json")
+            self.playIR(self.IRDIR + "tv_down.json")
+            self.playIR(self.IRDIR + "tv_enter.json")
             time.sleep(0.5)
-            self.playIR("/usr/local/src/irmcli/tv_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_enter.json")
+            self.playIR(self.IRDIR + "tv_down.json")
+            self.playIR(self.IRDIR + "tv_enter.json")
             time.sleep(0.5)
-            self.playIR("/usr/local/src/irmcli/tv_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_enter.json")
+            self.playIR(self.IRDIR + "tv_down.json")
+            self.playIR(self.IRDIR + "tv_down.json")
+            self.playIR(self.IRDIR + "tv_enter.json")
             time.sleep(0.5)
-            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
-            self.playIR("/usr/local/src/irmcli/tv_vol_down.json")
+            self.playIR(self.IRDIR + "tv_vol_down.json")
+            self.playIR(self.IRDIR + "tv_vol_down.json")
+            self.playIR(self.IRDIR + "tv_vol_down.json")
+            self.playIR(self.IRDIR + "tv_vol_down.json")
+            self.playIR(self.IRDIR + "tv_vol_down.json")
+            self.playIR(self.IRDIR + "tv_vol_down.json")
         return True
 
 if __name__ == "__main__":
