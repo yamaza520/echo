@@ -29,12 +29,14 @@ class device_handler(debounce_handler):
     """Publishes the on/off state requested,
        and the IP address of the Echo making the request.
     """
-    TRIGGERS = {"lights": 52000, "tv": 52001, "offtimer": 52002}
+    TRIGGERS = {"lights": 52000, "tv": 52001, "aircon": 52002}
 
     def act(self, client_address, state, name):
         logging.info("State", state, "on", name, "from client @", client_address)
         if name == "lights":
             self.playLights(state)
+        if name == "aircon":
+            self.playAircon(state)
         elif name == "tv":
             self.playTv(state)
         elif name == "offtimer":
@@ -83,6 +85,13 @@ class device_handler(debounce_handler):
             self.playIR("/usr/local/src/irmcli/light_on.json")
         else:
             self.playIR("/usr/local/src/irmcli/light_off.json")
+        return True
+
+    def playAircon(self, state):
+        if state == True:
+            self.playIR("/usr/local/src/irmcli/air_on.json")
+        else:
+            self.playIR("/usr/local/src/irmcli/air_off.json")
         return True
 
     def playTv(self, state):
